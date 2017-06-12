@@ -48,14 +48,16 @@ class Classifier(object):
     ''' Testing the classifier predictions '''
 
     for column in self.X_test:
-      self.strategyMap[column](self.X_train[column]);
+      strategy = self.strategyMap[column](self.X_test[column]);
+      strategy.compute();
 
 
   def train(self):
     ''' Training the classifier to get better predictions '''
 
     for column in self.X_train:
-      self.strategyMap[column](self.X_train[column]);
+      strategy = self.strategyMap[column](self.X_train[column]);
+      strategy.compute();
 
 
   def unconvertInitialData(self, stopIndex=-1):

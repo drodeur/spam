@@ -8,3 +8,4 @@ fieldsMap = {'sms_message': Strategies.BAG_OF_WORDS};
 
 classifier = BayesianClassifier(pd.read_table('SMSSpamCollection', names=['label', 'sms_message']), labelsMap, fieldsMap);
 classifier.train();
+classifier.test();
