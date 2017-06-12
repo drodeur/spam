@@ -19,9 +19,9 @@ class BayesianClassifier(Classifier):
   def test(self):
     ''' Testing the classifier predictions - using naive bayes '''
     self.options['fit'] = False;
+    self.predicts = [];
 
     for column in self.X_test:
       strategy = self.strategyMap[column](self.X_test[column], self.options);
       matrix = strategy.compute();
-      predicts = self.naive_bayes.predict(matrix.toarray());
-      print(predicts);
+      self.predicts.append(self.naive_bayes.predict(matrix.toarray()));

@@ -44,6 +44,35 @@ class Classifier(object):
     ''' Is it time to break the loop? '''
     return stopIndex > -1 and index >= stopIndex;
 
+  def stats(self, label):
+    ''' Print accuracy, precision, recall and F1 scores '''
+    accuracy = precision = recall = falseNegative = falsePositive = 0;
+    labels = list(self.y_test);
+    total = len(labels);
+    hypothesis = self.map[label];
+
+    for predictRow in self.predicts:
+      for index, predict in enumerate(predictRow):
+        if predict == labels[index]:
+          accuracy += 1;
+
+          if labels[index] == hypothesis:
+            precision += 1;
+            recall += 1;
+        elif labels[index] == hypothesis:
+          falseNegative += 1;
+        else:
+          falsePositive += 1;
+
+    accuracy /= total;
+    precision /= precision + falsePositive;
+    recall /= recall + falseNegative;
+
+    print("Accuracy :\t{}".format(accuracy));
+    print("Precision :\t{}".format(precision));
+    print("Recall :\t{}".format(recall));
+    print("F1 :\t\t{}".format((precision + recall) / 2.0));
+
   def test(self):
     ''' Testing the classifier predictions '''
 
